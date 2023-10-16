@@ -77,6 +77,33 @@ public class RecruitController {
         }
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<String> searchRecruits(@RequestParam String keyword) {
+        List<Recruit> searchResults = recruitRepository.findByPositionContainingOrSkillContainingOrDetailsContaining(keyword, keyword, keyword);
+        if (searchResults.isEmpty())
+            return ResponseEntity.status(404).body("There's no matching recruit.");
+        else {
+            List<Map<String, Object>> resultList = new ArrayList<>();
+
+            for (Recruit recruit : searchResults) {
+                Map<String, Object> resultMap = new HashMap<>();
+                resultMap.put("id", recruit.getId());
+                resultMap.put("회사명", recruit.getCompanyName());
+                resultMap.put("채용포지션", recruit.getPosition());
+                resultMap.put("채용보상금", recruit.getCompensation());
+                resultMap.put("사용기술", recruit.getSkill());
+                resultList.add(resultMap);
+            }
+
+            try {
+                ObjectMapper objectMapper = new ObjectMapper();
+                String json = objectMapper.writeValueAsString(resultList);
+                return ResponseEntity.status(200).body(json);
+            } catch (JsonProcessingException e) {
+                return ResponseEntity.internalServerError().body("There' an error on json processing.");
+            }
+        }
+    }
 
     // POST 요청을 통해 채용 정보 생성
     @PostMapping

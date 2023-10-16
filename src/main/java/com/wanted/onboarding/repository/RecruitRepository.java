@@ -12,4 +12,5 @@ public interface RecruitRepository extends JpaRepository<Recruit, Long> {
     List<Long> findIdsByCompanyId(Integer companyId, Long id);
     @Query("SELECT r.id, r.companyName, r.position, r.compensation, r.skill FROM Recruit r")
     List<Tuple> findAllDetailsNotContaining();
+    List<Recruit> findByPositionContainingOrSkillContainingOrDetailsContaining(String keyword1, String keyword2, String keyword3);
 }
