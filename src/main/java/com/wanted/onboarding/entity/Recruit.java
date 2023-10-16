@@ -10,8 +10,10 @@ public class Recruit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Integer company_id;
-    private String company_name;
+    @Column(name = "company_id", nullable = false)
+    private Integer companyId;
+    @Column(name = "company_name", nullable = false)
+    private String companyName;
     private String position;
     private Integer compensation;
     private String skill;
