@@ -1,7 +1,6 @@
 package com.wanted.onboarding.unit;
 
 import com.wanted.onboarding.entity.User;
-import com.wanted.onboarding.repository.UserRepository;
 import com.wanted.onboarding.utils.JsonUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
