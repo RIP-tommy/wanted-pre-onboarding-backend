@@ -139,7 +139,7 @@ public class RecruitController {
                 existingRecruit.setSkill(updatedRecruit.getSkill());
             }
             if (updatedRecruit.getDetails() != null) {
-                existingRecruit.setSkill(updatedRecruit.getDetails());
+                existingRecruit.setDetails(updatedRecruit.getDetails());
             }
             if (updatedRecruit.getPosition() == null && updatedRecruit.getCompensation() == null && updatedRecruit.getSkill() == null && updatedRecruit.getDetails() == null) {
                 return ResponseEntity.noContent().build();
