@@ -1,7 +1,6 @@
 package com.wanted.onboarding.controller;
 
 import com.wanted.onboarding.entity.Company;
-import com.wanted.onboarding.entity.User;
 import com.wanted.onboarding.repository.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +14,19 @@ public class CompanyController {
 
     @PostMapping
     public ResponseEntity<String> createCompany(@RequestBody Company company) {
+        if (company.getId() != null)
+            return ResponseEntity.badRequest().body("Don't send id value.");
+        if (company.getName() == null)
+            return ResponseEntity.status(204).body("");
         try {
-            return ResponseEntity.status(201).body(companyRepository.save(company).toString());
+            Company savedCompany = companyRepository.save(company);
+
+            Long id = savedCompany.getId();
+            String name = savedCompany.getName();
+            String json = String.format("{\"id\": %d, \"name\": \"%s\"}", id, name);
+            return ResponseEntity.status(201).body(json);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Check request body.");
+            return ResponseEntity.internalServerError().body("Something's going wrong on server :(");
         }
     }
 }

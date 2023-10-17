@@ -1,6 +1,5 @@
 package com.wanted.onboarding.controller;
 
-import com.wanted.onboarding.entity.Recruit;
 import com.wanted.onboarding.entity.User;
 import com.wanted.onboarding.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +14,19 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<String> createUser(@RequestBody User user) {
+        if (user.getId() != null)
+            return ResponseEntity.badRequest().body("Don't send id value.");
+        if (user.getName() == null)
+            return ResponseEntity.status(204).body("");
         try {
-            return ResponseEntity.status(201).body(userRepository.save(user).toString());
+            User savedUser = userRepository.save(user);
+
+            Long id = savedUser.getId();
+            String name = savedUser.getName();
+            String json = String.format("{\"id\": %d, \"name\": \"%s\"}", id, name);
+            return ResponseEntity.status(201).body(json);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Check request body.");
+            return ResponseEntity.internalServerError().body("Something's going wrong on server :(");
         }
     }
 }
