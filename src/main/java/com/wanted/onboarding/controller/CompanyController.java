@@ -1,5 +1,6 @@
 package com.wanted.onboarding.controller;
 
+import com.wanted.onboarding.Utils.CustomResponseEntity;
 import com.wanted.onboarding.entity.Company;
 import com.wanted.onboarding.repository.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class CompanyController {
             Long id = savedCompany.getId();
             String name = savedCompany.getName();
             String json = String.format("{\"id\": %d, \"name\": \"%s\"}", id, name);
-            return ResponseEntity.status(201).body(json);
+            return CustomResponseEntity.jsonResponse(201, json);
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body("Something's going wrong on server :(");
         }

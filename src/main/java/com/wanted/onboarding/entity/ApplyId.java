@@ -6,8 +6,8 @@ import jakarta.persistence.Embeddable;
 
 @Embeddable
 public class ApplyId implements Serializable {
-    private int userId;
-    private int recruitId;
+    private Integer userId;
+    private Integer recruitId;
 
     public ApplyId() {
     }

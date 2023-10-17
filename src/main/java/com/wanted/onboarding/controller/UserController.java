@@ -2,6 +2,7 @@ package com.wanted.onboarding.controller;
 
 import com.wanted.onboarding.entity.User;
 import com.wanted.onboarding.repository.UserRepository;
+import com.wanted.onboarding.Utils.CustomResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     @Autowired
     private UserRepository userRepository;
+
 
     @PostMapping
     public ResponseEntity<String> createUser(@RequestBody User user) {
@@ -24,7 +26,7 @@ public class UserController {
             Long id = savedUser.getId();
             String name = savedUser.getName();
             String json = String.format("{\"id\": %d, \"name\": \"%s\"}", id, name);
-            return ResponseEntity.status(201).body(json);
+            return CustomResponseEntity.jsonResponse(201, json);
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body("Something's going wrong on server :(");
         }

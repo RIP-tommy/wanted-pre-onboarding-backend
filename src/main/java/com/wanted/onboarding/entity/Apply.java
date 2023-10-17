@@ -10,9 +10,9 @@ import lombok.Data;
 public class Apply {
     @Id
     @Column(name = "user_id", nullable = false)
-    private int userId;
+    private Integer userId;
 
     @Id
     @Column(name = "recruit_id", nullable = false)
-    private int recruitId;
+    private Integer recruitId;
 }
