@@ -1,7 +1,5 @@
 package com.wanted.onboarding.unit;
 
-import com.wanted.onboarding.entity.Company;
-import com.wanted.onboarding.utils.JsonUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -21,20 +19,15 @@ public class CompanyControllerTest {
 
     @Test
     public void testCreateCompany() throws Exception {
-        Company company = new Company();
-        company.setName("wanted");
+        String json = "{\"name\": \"카카오\"}";
 
         ResultActions resultActions = mockMvc.perform(
                 MockMvcRequestBuilders
                         .post("/companies")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(JsonUtils.asJsonString(company))
+                        .content(json)
         );
 
-        resultActions.andExpect(status().isOk());
-        // Add more assertions as needed
+        resultActions.andExpect(status().isCreated());
     }
-
-    // Implement similar test methods for other endpoints (companies, recruits)
-
 }

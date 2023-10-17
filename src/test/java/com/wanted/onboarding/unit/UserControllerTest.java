@@ -31,10 +31,6 @@ public class UserControllerTest {
                         .content(JsonUtils.asJsonString(user))
         );
 
-        resultActions.andExpect(status().isOk());
-        // Add more assertions as needed
+        resultActions.andExpect(status().isCreated());
     }
-
-    // Implement similar test methods for other endpoints (companies, recruits)
-
 }
